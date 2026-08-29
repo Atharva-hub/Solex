@@ -17,8 +17,8 @@ export const createShoe = async (req, res) => {
         // req.file has the image file. We need to create the URL for the frontend to use.
         let imageUrl = '';
         if (req.file) {
-            // If a file was uploaded, save its path
-            imageUrl = `/uploads/${req.file.filename}`;
+            // Use the backend server URL so the frontend can load the image correctly
+            imageUrl = `http://localhost:4000/uploads/${req.file.filename}`;
         } else {
             return res.status(400).json({ message: "Image file is required" });
         }
