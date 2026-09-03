@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
   // 1. Create state for inputs and errors
@@ -8,6 +9,7 @@ const Login = () => {
   const [error, setError] = useState('');
   
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   // 2. Handle form submission
   const handleSubmit = async (e) => {
@@ -27,8 +29,9 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Save the user data and JWT token to the browser
-        localStorage.setItem('userInfo', JSON.stringify(data));
+        // Save the user data and JWT token, and let every component
+        // (starting with the Nav bar) know someone just logged in
+        login(data);
         
         // Redirect admins to the dashboard, customers to the home page
         if (data.isAdmin) {

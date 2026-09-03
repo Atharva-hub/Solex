@@ -13,7 +13,7 @@ const ShoeCard = ({ shoe }) => (
       <p className="text-muted mb-2">{shoe.brand}</p>
       <p className="card-text">{shoe.description}</p>
       <div className="mt-auto d-flex justify-content-between align-items-center">
-        <span className="fw-bold">${Number(shoe.price || 0).toFixed(2)}</span>
+        <span className="fw-bold">₹{Number(shoe.price || 0).toFixed(2)}</span>
         <button className="btn btn-dark btn-sm">Add to cart</button>
       </div>
     </div>

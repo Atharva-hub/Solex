@@ -6,7 +6,8 @@ const SignIn = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        adminCode: ''
     });
     const [error, setError] = useState('');
 
@@ -104,6 +105,24 @@ const SignIn = () => {
                                             onChange={handleChange}
                                             required
                                         />
+                                    </div>
+
+                                    <div className="col-12 mt-4">
+                                        <label htmlFor="adminCode" className="form-label fw-semibold">
+                                            Admin Code <span className="text-muted fw-normal">(optional)</span>
+                                        </label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="adminCode"
+                                            name="adminCode"
+                                            placeholder="Leave blank for a regular account"
+                                            value={formData.adminCode}
+                                            onChange={handleChange}
+                                        />
+                                        <div className="form-text">
+                                            Only fill this in if you were given an admin signup code.
+                                        </div>
                                     </div>
 
                                     <div className="col-12 mt-4 d-flex justify-content-center">

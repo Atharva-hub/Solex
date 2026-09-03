@@ -8,9 +8,10 @@ import Wishlist from './pages/WishList'
 import Footer from './components/Footer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Admin from './pages/Admin'
+import { AuthProvider } from './context/AuthProvider'
 function App() {
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
         <Nav/>
         <Routes>
@@ -24,7 +25,7 @@ function App() {
         </Routes>
         <Footer/>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   )
 }
 

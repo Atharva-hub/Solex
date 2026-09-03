@@ -1,7 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Nav = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm py-2">
       <div className="container-fluid">
@@ -43,12 +52,28 @@ const Nav = () => {
           
           {/* Authentication Buttons (Pushed to the right) */}
           <div className="d-flex align-items-center gap-2">
-            <Link className="btn btn-outline-dark px-4" to="/login">
-              Login
-            </Link>
-            <Link className="btn btn-dark px-4" to="/signup">
-              Sign Up
-            </Link>
+            {user ? (
+              <>
+                <span className="fw-semibold me-2">Hi, {user.name}</span>
+                {user.isAdmin && (
+                  <Link className="btn btn-outline-dark px-3" to="/admin">
+                    Admin
+                  </Link>
+                )}
+                <button className="btn btn-dark px-4" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link className="btn btn-outline-dark px-4" to="/login">
+                  Login
+                </Link>
+                <Link className="btn btn-dark px-4" to="/signup">
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
           
         </div>
