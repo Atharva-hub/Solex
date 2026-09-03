@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useTheme } from '../hooks/useTheme';
+import { useCart } from '../hooks/useCart';
+import { useWishlist } from '../hooks/useWishlist';
 
 const Nav = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const { itemCount } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -43,15 +49,34 @@ const Nav = () => {
               <Link className="nav-link" to="/shoes">Shoes</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/cart">Cart</Link>
+              <Link className="nav-link position-relative" to="/cart">
+                Cart
+                {itemCount > 0 && (
+                  <span className="badge rounded-pill bg-danger ms-1">{itemCount}</span>
+                )}
+              </Link>
             </li>   
             <li className="nav-item">
-              <Link className="nav-link" to="/wishlist">Wishlist</Link>
+              <Link className="nav-link position-relative" to="/wishlist">
+                Wishlist
+                {wishlistCount > 0 && (
+                  <span className="badge rounded-pill bg-danger ms-1">{wishlistCount}</span>
+                )}
+              </Link>
             </li>
           </ul>
           
           {/* Authentication Buttons (Pushed to the right) */}
           <div className="d-flex align-items-center gap-2">
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={toggleTheme}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             {user ? (
               <>
                 <span className="fw-semibold me-2">Hi, {user.name}</span>

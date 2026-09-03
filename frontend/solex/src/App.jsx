@@ -9,23 +9,32 @@ import Footer from './components/Footer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Admin from './pages/Admin'
 import { AuthProvider } from './context/AuthProvider'
+import { ThemeProvider } from './context/ThemeProvider'
+import { CartProvider } from './context/CartProvider'
+import { WishlistProvider } from './context/WishlistProvider'
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Nav/>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/signup" element={<Signup/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="/wishlist" element={<Wishlist/>}/>          <Route path="/shoes" element={<Shoe/>}/>          <Route path="/shoes" element={<Shoe/>}/>
-          <Route path="/admin" element={<Admin/>}/>
-          <Route path="/login" element={<Login/>}/>
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <BrowserRouter>
+              <Nav/>
+              <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/signup" element={<Signup/>}/>
+                <Route path="/cart" element={<Cart/>}/>
+                <Route path="/wishlist" element={<Wishlist/>}/>          <Route path="/shoes" element={<Shoe/>}/>          <Route path="/shoes" element={<Shoe/>}/>
+                <Route path="/admin" element={<Admin/>}/>
+                <Route path="/login" element={<Login/>}/>
 
-        </Routes>
-        <Footer/>
-      </BrowserRouter>
-    </AuthProvider>
+              </Routes>
+              <Footer/>
+            </BrowserRouter>
+          </WishlistProvider>
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
